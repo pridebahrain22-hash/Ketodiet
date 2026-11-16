@@ -12,6 +12,7 @@ import {
   applyDiscountBhd,
   formatCurrencyPrice,
 } from '../data/ebookContent';
+import { CosmicTooltip } from './CosmicTooltip';
 import { QrCodeDisplay } from './QrCodeDisplay';
 import { WhatsAppIcon } from './WhatsAppSupportButton';
 
@@ -210,22 +211,31 @@ export function PurchaseSection({
                   </h3>
                   <p className="text-sm text-stone-300 mt-1.5">{edition.subtitle}</p>
                 </div>
-                <div className="sm:text-right shrink-0">
-                  <div className="flex sm:justify-end items-center gap-2 mb-0.5">
-                    <span className="text-xs font-semibold text-amber-300">
-                      -{DISCOUNT_PERCENT}% OFF
+                <CosmicTooltip
+                  title="25% Discount Locked In"
+                  badge={`-${DISCOUNT_PERCENT}%`}
+                  description={`Was ${originalDisplayPrice} — now ${displayPrice} (${usdPrice}). Pay once in BHD, USD, SAR, AED, GBP, or EUR for instant PDF download.`}
+                  placement="top"
+                  align="right"
+                  className="shrink-0"
+                >
+                  <div className="sm:text-right shrink-0 cursor-help">
+                    <div className="flex sm:justify-end items-center gap-2 mb-0.5">
+                      <span className="text-xs font-semibold text-amber-300">
+                        -{DISCOUNT_PERCENT}% OFF
+                      </span>
+                      <span className="font-mono text-xs text-stone-400 line-through tabular-nums">
+                        {originalDisplayPrice}
+                      </span>
+                    </div>
+                    <span className="font-mono text-3xl sm:text-4xl font-semibold text-amber-300 tabular-nums">
+                      {displayPrice}
                     </span>
-                    <span className="font-mono text-xs text-stone-400 line-through tabular-nums">
-                      {originalDisplayPrice}
-                    </span>
+                    <p className="font-mono text-xs text-emerald-300 mt-1 tabular-nums">
+                      {currency === 'USD' ? `${discountedBhdPrice.toFixed(3)} BHD` : usdPrice}
+                    </p>
                   </div>
-                  <span className="font-mono text-3xl sm:text-4xl font-semibold text-amber-300 tabular-nums">
-                    {displayPrice}
-                  </span>
-                  <p className="font-mono text-xs text-emerald-300 mt-1 tabular-nums">
-                    {currency === 'USD' ? `${discountedBhdPrice.toFixed(3)} BHD` : usdPrice}
-                  </p>
-                </div>
+                </CosmicTooltip>
               </div>
 
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
@@ -238,12 +248,21 @@ export function PurchaseSection({
               </ul>
 
               <div className="space-y-4 pt-2">
-                <button
-                  onClick={() => onSelectEdition(liveEdition)}
-                  className="w-full py-4 px-6 rounded-xl text-sm sm:text-base font-semibold bg-emerald-500 hover:bg-emerald-400 text-stone-950 transition-colors cursor-pointer tabular-nums"
+                <CosmicTooltip
+                  title="Instant Bilingual PDF Checkout"
+                  badge="24 Pages"
+                  description="Opens BenefitPay QR scan, BisB IBAN, or Global USD transfer details. Upload screenshot to unlock download immediately."
+                  placement="top"
+                  align="center"
+                  fullWidth
                 >
-                  Buy Now · {displayPrice} ({currency === 'USD' ? `${discountedBhdPrice.toFixed(3)} BHD` : usdPrice})
-                </button>
+                  <button
+                    onClick={() => onSelectEdition(liveEdition)}
+                    className="w-full py-4 px-6 rounded-xl text-sm sm:text-base font-semibold bg-emerald-500 hover:bg-emerald-400 text-stone-950 transition-colors cursor-pointer tabular-nums"
+                  >
+                    Buy Now · {displayPrice} ({currency === 'USD' ? `${discountedBhdPrice.toFixed(3)} BHD` : usdPrice})
+                  </button>
+                </CosmicTooltip>
 
                 <div className="flex items-center justify-center gap-2 text-xs text-stone-400">
                   <ShieldCheck className="w-4 h-4 text-emerald-400" />

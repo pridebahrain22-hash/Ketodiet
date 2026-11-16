@@ -5,6 +5,7 @@ import {
   WHATSAPP_SUPPORT_LINK,
   WHATSAPP_SUPPORT_NUMBER,
 } from '../data/ebookContent';
+import { CosmicTooltip } from './CosmicTooltip';
 import { WhatsAppIcon } from './WhatsAppSupportButton';
 
 interface PdfPreviewModalProps {
@@ -36,16 +37,24 @@ export function PdfPreviewModal({ open, priceLabel, onClose, onBuyClick }: PdfPr
           </div>
 
           <div className="flex items-center gap-3">
-            <button
-              onClick={() => {
-                onClose();
-                onBuyClick();
-              }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-xs font-semibold rounded-lg transition-colors cursor-pointer tabular-nums"
+            <CosmicTooltip
+              title="Unlock All 24 Bilingual Pages"
+              badge="25% OFF"
+              description="Proceed to BenefitPay QR or Global USD checkout for instant PDF access."
+              placement="bottom"
+              align="right"
             >
-              <ShoppingBag className="w-3.5 h-3.5" />
-              <span>Unlock Full PDF · {priceLabel}</span>
-            </button>
+              <button
+                onClick={() => {
+                  onClose();
+                  onBuyClick();
+                }}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-xs font-semibold rounded-lg transition-colors cursor-pointer tabular-nums"
+              >
+                <ShoppingBag className="w-3.5 h-3.5" />
+                <span>Unlock Full PDF · {priceLabel}</span>
+              </button>
+            </CosmicTooltip>
             <button
               onClick={onClose}
               aria-label="Close edition overview"
@@ -99,16 +108,25 @@ export function PdfPreviewModal({ open, priceLabel, onClose, onBuyClick }: PdfPr
               </div>
 
               <div className="flex flex-wrap items-center gap-3">
-                <button
-                  onClick={() => {
-                    onClose();
-                    onBuyClick();
-                  }}
-                  className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-xs sm:text-sm font-semibold rounded-xl transition-colors cursor-pointer tabular-nums"
+                <CosmicTooltip
+                  title="Instant Digital Delivery"
+                  badge={priceLabel}
+                  description="Scan BenefitPay QR, use BisB IBAN, or pay via Wise / SWIFT USD to unlock your PDF immediately."
+                  placement="top"
+                  align="center"
+                  className="flex-1"
                 >
-                  <ShoppingBag className="w-4 h-4" />
-                  <span>Buy &amp; Download Full Guide · {priceLabel}</span>
-                </button>
+                  <button
+                    onClick={() => {
+                      onClose();
+                      onBuyClick();
+                    }}
+                    className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-xs sm:text-sm font-semibold rounded-xl transition-colors cursor-pointer tabular-nums"
+                  >
+                    <ShoppingBag className="w-4 h-4" />
+                    <span>Buy &amp; Download Full Guide · {priceLabel}</span>
+                  </button>
+                </CosmicTooltip>
                 <a
                   href={`${WHATSAPP_SUPPORT_LINK}?text=${encodeURIComponent(
                     'Hello KetoLife Bahrain! I would like to ask about the 30-Day Keto Guide.',

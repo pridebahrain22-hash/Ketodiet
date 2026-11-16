@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ketolifebahrain.web.app/sitemap.xml
+Sitemap: https://ketolife.bh/sitemap.xml

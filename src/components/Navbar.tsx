@@ -1,4 +1,5 @@
 import { Volume2, VolumeX } from 'lucide-react';
+import { CosmicTooltip } from './CosmicTooltip';
 
 interface NavbarProps {
   priceLabel: string;
@@ -84,12 +85,20 @@ export function Navbar({
             </span>
           </button>
 
-          <button
-            onClick={onBuyClick}
-            className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-xs sm:text-sm font-semibold rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer tabular-nums"
+          <CosmicTooltip
+            title="25% Launch Offer · Instant PDF"
+            badge="BHD / USD"
+            description="Unlock all 24 bilingual English & Arabic pages immediately via BenefitPay QR, BisB IBAN, or USD transfer."
+            placement="bottom"
+            align="right"
           >
-            Buy eBook · {priceLabel}
-          </button>
+            <button
+              onClick={onBuyClick}
+              className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-xs sm:text-sm font-semibold rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer tabular-nums"
+            >
+              Buy eBook · {priceLabel}
+            </button>
+          </CosmicTooltip>
         </div>
       </div>
     </header>

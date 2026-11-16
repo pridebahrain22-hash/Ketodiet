@@ -22,6 +22,7 @@ import { createBlackHoleSystem } from '../three/blackHoleShader';
 import { createKetoBookModel } from '../three/bookBuilder';
 import { createIngredientField } from '../three/ingredientBuilder';
 import { createStarFieldSystem } from '../three/starField';
+import { CosmicTooltip } from './CosmicTooltip';
 
 type CameraPresetId = 'horizon' | 'book' | 'ingredients';
 
@@ -589,16 +590,24 @@ export function Hero3DCanvas({
             dockOpen ? 'bottom-[114px]' : 'bottom-14'
           }`}
         >
-          <button
-            onClick={onBuyClick}
-            className="pointer-events-auto inline-flex items-center gap-2 px-6 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-xs sm:text-sm font-semibold rounded-xl shadow-2xl transition-colors whitespace-nowrap shrink-0 cursor-pointer tabular-nums"
+          <CosmicTooltip
+            title="Instant Digital Unlock · 25% OFF"
+            badge={priceLabel}
+            description={`Save 25% (${originalPriceLabel} → ${priceLabel}). Includes BenefitPay QR, BisB IBAN, and Global USD checkout.`}
+            placement="top"
+            align="center"
           >
-            <ShoppingBag className="w-4 h-4" />
-            <span>Buy Now · {priceLabel}</span>
-            <span className="line-through opacity-70 text-[11px] font-medium">
-              {originalPriceLabel}
-            </span>
-          </button>
+            <button
+              onClick={onBuyClick}
+              className="pointer-events-auto inline-flex items-center gap-2 px-6 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-xs sm:text-sm font-semibold rounded-xl shadow-2xl transition-colors whitespace-nowrap shrink-0 cursor-pointer tabular-nums"
+            >
+              <ShoppingBag className="w-4 h-4" />
+              <span>Buy Now · {priceLabel}</span>
+              <span className="line-through opacity-70 text-[11px] font-medium">
+                {originalPriceLabel}
+              </span>
+            </button>
+          </CosmicTooltip>
           <button
             onClick={() => setIsBookOpen((prev) => !prev)}
             className="pointer-events-auto inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#0a1017]/95 hover:bg-[#13202d] border border-white/20 text-stone-100 text-xs sm:text-sm font-medium rounded-xl shadow-2xl transition-colors whitespace-nowrap shrink-0 cursor-pointer"
@@ -820,20 +829,29 @@ export function Hero3DCanvas({
                 </button>
               </div>
             </div>
-            <div className="text-right shrink-0">
-              <span className="block font-mono text-xs text-stone-400 line-through tabular-nums">
-                {originalPriceLabel}
-              </span>
-              <span className="font-mono text-2xl font-semibold text-amber-300 tabular-nums">
-                {priceLabel}
-              </span>
-              {currency !== 'USD' && (
-                <p className="font-mono text-xs text-emerald-300 mt-0.5 tabular-nums">
-                  {usdPriceLabel}
-                </p>
-              )}
-              <p className="text-[11px] text-stone-400 mt-0.5">Instant Download</p>
-            </div>
+            <CosmicTooltip
+              title="25% Limited-Time Discount"
+              badge="-25%"
+              description={`Regular ${originalPriceLabel} discounted to ${priceLabel} (${usdPriceLabel}). One-time payment, lifetime PDF access.`}
+              placement="top"
+              align="right"
+              className="shrink-0"
+            >
+              <div className="text-right shrink-0 cursor-help">
+                <span className="block font-mono text-xs text-stone-400 line-through tabular-nums">
+                  {originalPriceLabel}
+                </span>
+                <span className="font-mono text-2xl font-semibold text-amber-300 tabular-nums">
+                  {priceLabel}
+                </span>
+                {currency !== 'USD' && (
+                  <p className="font-mono text-xs text-emerald-300 mt-0.5 tabular-nums">
+                    {usdPriceLabel}
+                  </p>
+                )}
+                <p className="text-[11px] text-stone-400 mt-0.5">Instant Download</p>
+              </div>
+            </CosmicTooltip>
           </div>
 
           <dl className="grid grid-cols-2 gap-4 text-xs">
@@ -856,13 +874,22 @@ export function Hero3DCanvas({
           </dl>
 
           <div className="flex flex-wrap items-center gap-3">
-            <button
-              onClick={onBuyClick}
-              className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-sm font-semibold rounded-xl transition-colors whitespace-nowrap cursor-pointer tabular-nums"
+            <CosmicTooltip
+              title="Checkout · 24-Page Full eBook"
+              badge="Instant"
+              description="Open BenefitPay QR & BisB IBAN or international USD payment drawer to verify & download immediately."
+              placement="top"
+              align="center"
+              className="flex-1"
             >
-              <ShoppingBag className="w-4 h-4" />
-              <span>Buy Now · {priceLabel}</span>
-            </button>
+              <button
+                onClick={onBuyClick}
+                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-sm font-semibold rounded-xl transition-colors whitespace-nowrap cursor-pointer tabular-nums"
+              >
+                <ShoppingBag className="w-4 h-4" />
+                <span>Buy Now · {priceLabel}</span>
+              </button>
+            </CosmicTooltip>
 
             <button
               onClick={onPreviewPdfClick}

@@ -20,7 +20,7 @@ export function createStarFieldSystem(pixelRatio: number): StarFieldSystem {
   const group = new THREE.Group();
   const rand = createSeededRandom(20261115);
 
-  const starCount = 1650;
+  const starCount = 3600;
   const positions = new Float32Array(starCount * 3);
   const colors = new Float32Array(starCount * 3);
   const sizes = new Float32Array(starCount);
@@ -70,11 +70,11 @@ export function createStarFieldSystem(pixelRatio: number): StarFieldSystem {
     colors[i * 3 + 2] = Math.min(1, chosen.b * tintScale);
 
     // Power-law star magnitude distribution: mostly crisp pinpoints, ~10% gently brighter accent stars
-    const mag = Math.pow(rand(), 3.2);
-    sizes[i] = 0.65 + mag * 2.15;
+    const mag = Math.pow(rand(), 3.0);
+    sizes[i] = 0.72 + mag * 2.35;
     phases[i] = rand() * Math.PI * 2;
-    speeds[i] = 0.45 + rand() * 1.35;
-    alphas[i] = 0.24 + mag * 0.46;
+    speeds[i] = 1.15 + rand() * 2.65;
+    alphas[i] = 0.28 + mag * 0.56;
   }
 
   const geometry = new THREE.BufferGeometry();
@@ -109,15 +109,17 @@ export function createStarFieldSystem(pixelRatio: number): StarFieldSystem {
         vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
         float dist = max(-mvPosition.z, 1.0);
 
-        float twinkle = 0.74 + 0.26 * sin(uTime * aSpeed + aPhase);
+        float wave = 0.65 * sin(uTime * aSpeed + aPhase)
+                   + 0.35 * sin(uTime * aSpeed * 1.73 + aPhase * 2.1);
+        float twinkle = 0.56 + 0.44 * wave;
         // Gently fade outermost stars so the deep field feels continuous
         float depthFade = 1.0 - smoothstep(58.0, 95.0, dist);
 
         vColor = aColor;
         vAlpha = aBaseAlpha * twinkle * depthFade;
-        vAccent = smoothstep(1.75, 2.75, aSize);
+        vAccent = smoothstep(1.75, 2.9, aSize);
 
-        gl_PointSize = clamp(aSize * uPixelRatio * (135.0 / dist), 1.2, 14.0);
+        gl_PointSize = clamp(aSize * (0.88 + 0.18 * twinkle) * uPixelRatio * (135.0 / dist), 1.2, 15.0);
         gl_Position = projectionMatrix * mvPosition;
       }
     `,
@@ -157,8 +159,9 @@ export function createStarFieldSystem(pixelRatio: number): StarFieldSystem {
     group,
     update(elapsed: number) {
       material.uniforms.uTime.value = elapsed;
-      starsPoints.rotation.y = elapsed * 0.0045;
-      starsPoints.rotation.x = Math.sin(elapsed * 0.003) * 0.015;
+      starsPoints.rotation.y = elapsed * 0.0095;
+      starsPoints.rotation.x = Math.sin(elapsed * 0.006) * 0.022;
+      starsPoints.rotation.z = elapsed * 0.0028;
     },
     dispose() {
       geometry.dispose();

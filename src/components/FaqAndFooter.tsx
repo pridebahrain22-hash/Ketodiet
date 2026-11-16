@@ -78,7 +78,7 @@ export function FaqAndFooter() {
           <div className="flex flex-wrap items-center justify-center gap-3">
             <span className="font-display text-base font-semibold text-white">KetoLife Bahrain</span>
             <span aria-hidden="true">·</span>
-            <span className="font-mono text-stone-300">ketolifebahrain.web.app</span>
+            <span className="font-mono text-stone-300">ketolife.bh</span>
             <span aria-hidden="true">·</span>
             <span>Manama, Kingdom of Bahrain</span>
             <span aria-hidden="true">·</span>
