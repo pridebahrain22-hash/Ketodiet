@@ -1,0 +1,8 @@
+{
+  "name": "KetoLife Bahrain — 3D Keto Diet eBook",
+  "description": "Bilingual 30-day keto diet and fitness guide for Bahrain, showcased in an interactive 3D cosmic black hole and orbiting keto ingredients experience.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
